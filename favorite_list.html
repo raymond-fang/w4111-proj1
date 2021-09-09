@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Your Favourite Animes:{% endblock %}</h1>
+{% endblock %}
+
+{% block content %} 
+  <ul>
+    {% for anime in favoriteAnimes %}
+    <li>
+      <a href={{ "/anime?anime_id={}".format(anime[0]) }}>{{anime[1]}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+{% endblock %} 

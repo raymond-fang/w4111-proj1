@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Anime Recommendation System{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<body>
+<form method="POST" action="/search">
+<p>
+  <label for="g">Genre(s):</label>
+  <input type="text" name="genres" id="g">
+  <label for="e">Exclude genre(s):</label>
+  <input type="text" name="exclude" id="e">
+  <label for="m">Minimum Rating ( /10):</label>
+  <input type="number" name="min_rating" id="m">
+  <input type="submit" value="Submit"> 
+</p>
+</form>
+
+{% for message in get_flashed_messages(category_filter=["anime_in"]) %}
+    <div class="flash">{{ message }}</div>
+{% endfor %}
+<form method="POST" action="/lookup">
+  <p>
+    <label for="body">Or search by anime name:</label>
+    <input type="text" name="anime_name" maxlength='100' id="body"> 
+    <input type="submit" value="Submit">
+  </p>
+</form>
+</body>
+
+{% if not g.account and not g.admin%}
+<footer ali><a href='/admin_login'>Admin-Login</a></footer>
+{% endif %}
+{% endblock %}
+
+</html>

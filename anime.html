@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{{anime['anime_name']}}{% endblock %}</h1>
+  <span>Rating: {{anime['avg_rating']}}/10</span>
+{% endblock %}
+
+{% block content %}
+  {% if g.account %}
+  <form method="POST" action="/rate">
+    <div>
+      <label for="rate">Rate(0 to 10):</label> 
+      <input type="range" name="rating" id="rate" min="0" max="10">
+      <input type="hidden" name="anime_id" value={{ anime['anime_id'] }}>
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+
+  <form method="POST" action="/favorite">
+    <div>
+      <input type="hidden" name="anime_id" value={{ anime['anime_id'] }}>
+      <input type="hidden" name="name" value={{ anime['anime_name'] }}>
+      <input type="submit" value="Favorite this anime!">
+    </div>
+  </form>
+  {% endif %}
+  <div>
+    <a href={{ "https://myanimelist.net/anime/{}".format(anime['anime_id']) }}>
+      MyAnimeList URL
+    </a>
+  </div>
+  <header>
+    <h1>Reviews</h1>
+    <span>
+      {% if g.account %}
+        <a class="action" href={{write_url}}>Write</a>
+      {% endif %}
+    </span>
+  </header>
+  {% for review in reviews %}
+    <article class="post">
+      <p class="body">{{ review['text'] }}</p>
+      <i>{{ review['email'] }}</i>
+      {% if g.admin or g.account['account_id'] == review['account_id'] %}
+        <a href={{ "/modifyReview?review_id={}&anime_id={}".format(review['review_id'], anime['anime_id']) }}>Edit</a> |
+        <a href={{ "/delete?review_id={}&anime_id={}".format(review['review_id'], anime['anime_id']) }}>Delete</a>
+      {% endif %}
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+  <header>
+    <h1>Comments</h1>
+    <span>
+      {% if g.account %}
+        <a class="action" href={{post_url}}>Post</a>
+      {% endif %}
+    </span>
+  </header> 
+  {% for comment in comments %}
+    <article class="post">
+      <b>Episode {{comment['episode']}}</b>
+      <p class="body">{{ comment['text'] }}</p>
+      <i>{{ comment['email'] }}</i>
+      {% if g.admin or g.account['account_id'] == comment['account_id'] %}
+        <a href={{ "/modifyComment?comment_id={}&anime_id={}".format(comment['comment_id'], anime['anime_id']) }}>Edit</a> | 
+        <a href={{ "/delete?comment_id={}&anime_id={}".format(comment['comment_id'], anime['anime_id']) }}>Delete</a>
+      {% endif %}
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %} 
+{% endblock %}

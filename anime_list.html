@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Results for {{anime_in}}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %} 
+  <table>
+    <tr>
+      <th>Anime</th>
+      <th>Genres</th>
+      <th>#Episodes</th>
+      <th>Rating/10</th>
+    </tr>
+    {% for anime in animes %}
+    <tr>
+      <th class="anime">
+        <a href={{ "/anime?anime_id={}".format(anime[0]) }}>{{anime[1]}}</a>
+      </th>
+      <th>{{ anime[4] }}</th>
+      <th>{{ anime[2] }}</th>
+      <th>{{ anime[3] }}</th>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %} 

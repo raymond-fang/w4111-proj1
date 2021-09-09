@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit Comment{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="body">Text</label>
+    <textarea name="text" maxlength="1000" id="body">{{text}}</textarea>
+    <input type="hidden" name="anime_id" value={{anime_id}}>
+    <input type="hidden" name="comment_id" value={{comment_id}}>
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

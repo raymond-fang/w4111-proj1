@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Review{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="body">Text</label>
+    <textarea name="text" maxlength="200" id="body"></textarea>
+    <div>
+      <label for="ep_num">Episode Number:</label> 
+      <input type="number" name="episode" id="ep_num" style="width: 50px;">
+    </div>
+    <input type="hidden" name="anime_id" value={{anime_id}}>
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

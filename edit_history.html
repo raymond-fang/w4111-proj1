@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Admin History (reviews, across all admins){% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <header>
+    <h1>Deleted reviews:</h1>
+  </header>
+  {% for d in deleted %}
+    <article class="post">
+      <p class="body"><b>Review ID: {{ d['review_id'] }}</b>   deleted by <u>{{ d['email'] }}</u></p>
+      <i>{{d['text']}}</i>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+  <header>
+    <h1>Modified reviews:</h1>
+  </header> 
+  {% for m in modified %}
+    <article class="post">
+      <p class="body"><b>Review ID: {{ m['review_id'] }}</b>   modified by <u>{{ m['email'] }}</u></p>
+      <i>{{m['text']}}</i>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %} 
+{% endblock %}
