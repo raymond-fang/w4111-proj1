@@ -1,5 +1,7 @@
 
 """
+Stare into the IDE, and it stares back into you.
+
 Columbia's COMS W4111.001 Introduction to Databases
 Authors: Andrew Tang, Raymond Fang
 To run locally:
